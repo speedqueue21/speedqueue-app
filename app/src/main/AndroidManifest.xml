@@ -9,6 +9,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Skipdq">
+        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".FavouritesActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".CurrentOrdersActivity" />
+        <activity android:name=".CheckoutActivity" />
+        <activity android:name=".ItemActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".StallSelectActivity" />
+        <activity android:name=".FoodCourtSelectActivity" />
+        <activity android:name=".SchoolSelectActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
