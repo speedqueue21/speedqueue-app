@@ -10,11 +10,13 @@
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="login"
             android:text="Login"/>
 
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="register"
             android:text="Register"/>
 
 </LinearLayout>
