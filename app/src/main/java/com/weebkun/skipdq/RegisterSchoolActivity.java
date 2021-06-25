@@ -1,12 +1,16 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.moshi.Moshi;
+import com.weebkun.skipdq.net.Customer;
+import com.weebkun.skipdq.net.HttpClient;
 
 public class RegisterSchoolActivity extends AppCompatActivity {
 
@@ -24,7 +28,13 @@ public class RegisterSchoolActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
-        // go to fc selection
+        // get user from previous step
+        Customer cust = (Customer) getIntent().getSerializableExtra("user");
+        // set school preference
+        cust.school = ((Spinner) findViewById(R.id.school)).getSelectedItem().toString();
+        // create new customer
+        HttpClient.post("/register", new Moshi.Builder().build().adapter(Customer.class).toJson(cust));
+        // go to fc select
         startActivity(new Intent(this, FoodCourtSelectActivity.class));
     }
 }
