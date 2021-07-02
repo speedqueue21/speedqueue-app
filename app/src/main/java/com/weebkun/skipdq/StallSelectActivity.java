@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.weebkun.skipdq.net.HttpClient;
+import com.weebkun.skipdq.net.Item;
+import com.weebkun.skipdq.net.Stall;
+import com.weebkun.skipdq.util.ItemAdapter;
+
 public class StallSelectActivity extends AppCompatActivity {
 
     @Override
@@ -14,17 +19,22 @@ public class StallSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stall_select);
 
-        //set stalls
-        String[] stallList = {"stall 1", "stall 2", "stall 3", "stall 4"};
-        ListView stalls = findViewById(R.id.stalls);
-        stalls.setOnItemClickListener((parent, view, pos, id) -> {
-            // get item and go to stall select
-            Intent menu = new Intent(this, MenuActivity.class);
-            // send fc to menu
-            // todo get id of stall
-            menu.putExtra("stall", parent.getItemAtPosition(pos).toString());
-            startActivity(menu);
+        //get stalls
+        HttpClient.get(String.format("/schools/%s/fc/%s/stalls",
+                getIntent().getStringExtra("school"),
+                getIntent().getStringExtra("fc")), Stall[].class, stalls -> {
+            runOnUiThread(() -> {
+                ListView listView = findViewById(R.id.stalls);
+                listView.setOnItemClickListener((parent, view, pos, id) -> {
+                    // get fc and go to menu
+                    startActivity(new Intent(this, MenuActivity.class)
+                            .putExtra("stall", ((Stall) parent.getItemAtPosition(pos)).id)
+                            .putExtra("school", getIntent().getStringExtra("school"))
+                            .putExtra("fc", getIntent().getStringExtra("fc")))
+                    ;
+                });
+                listView.setAdapter(new ItemAdapter<>(this, stalls));
+            });
         });
-        stalls.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, stallList));
     }
 }

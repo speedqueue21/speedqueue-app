@@ -1,8 +1,17 @@
 package com.weebkun.skipdq.net;
 
-import com.squareup.moshi.Moshi;
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 
+import com.squareup.moshi.Moshi;
+import com.weebkun.skipdq.util.JWTDecoder;
+import com.weebkun.skipdq.util.JWTReader;
+import com.weebkun.skipdq.util.JWTWriter;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.function.Consumer;
 
 import okhttp3.MediaType;
@@ -12,18 +21,74 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HttpClient {
-    private static final OkHttpClient client = new OkHttpClient.Builder().build();
+    private static OkHttpClient client = new OkHttpClient.Builder().build();
     private static final String root = "https://skipdq.herokuapp.com";
     private static final String content_type = "application/json; charset=utf-8";
     private static final Moshi moshi = new Moshi.Builder().build();
 
-    public static  <T> void get(String endPoint, Class<T> type, Consumer<T> callback) {
+    public static void authorise(Context context, String token) {
+        //set token to test
+        authorise(token);
+        //test token
+        get("/", response -> {
+            if(!response.isSuccessful()) {
+                // token expired
+                // refresh token
+                try {
+                    TokenResponse tokenResponse = moshi.adapter(TokenResponse.class)
+                            .fromJson(JWTReader.read("token.json", context));
+                    refresh(context, tokenResponse.id, tokenResponse.refresh);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else authorise(token);
+        });
+    }
+
+    private static void authorise(String token) {
+        client = client.newBuilder().addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
+                // replace token with refreshed one if have
+                .header("authorization", "Bearer " + token).build())).build();
+    }
+
+    public static void refresh(Context context, String id, String refresh) {
+        post("/refresh", String.format("{" +
+                "\"id\": \"%s\"," +
+                "\"refresh\": \"%s\"" +
+                "}", id, refresh), response -> {
+            try {
+                String body = response.body().string();
+                TokenResponse tokenResponse = moshi.adapter(TokenResponse.class).fromJson(body);
+                //set token to header
+                authorise(tokenResponse.access);
+                // overwrite files
+                JWTWriter.writeTokenToFile(context, body, tokenResponse);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static <T> void get(String endPoint, Class<T> type, Consumer<T> callback) {
         new Thread(() -> {
             Request request = new Request.Builder()
                     .url(root + endPoint)
                     .build();
             try(Response response = client.newCall(request).execute()) {
                 callback.accept(moshi.adapter(type).fromJson(response.body().source()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    public static void get(String endPoint, Consumer<Response> callback) {
+        new Thread(() -> {
+            Request request = new Request.Builder()
+                    .url(root + endPoint)
+                    .build();
+            try(Response response = client.newCall(request).execute()) {
+                callback.accept(response);
             } catch (IOException e) {
                 e.printStackTrace();
             }

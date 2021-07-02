@@ -13,6 +13,8 @@ import android.widget.EditText;
 import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq.net.HttpClient;
 import com.weebkun.skipdq.net.TokenResponse;
+import com.weebkun.skipdq.util.JWTDecoder;
+import com.weebkun.skipdq.util.JWTWriter;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -37,11 +39,12 @@ public class LoginActivity extends AppCompatActivity {
                 // login successful
                 try {
                     // get tokens
-                    try(OutputStreamWriter writer = new OutputStreamWriter(openFileOutput("token.json", Context.MODE_PRIVATE))) {
-                        writer.write(response.body().string());
-                    }
-                    System.out.println("success login");
-                    //TokenResponse token = new Moshi.Builder().build().adapter(TokenResponse.class).fromJson(response.body().source());
+                    String res = response.body().string();
+                    TokenResponse tokenResponse = new Moshi.Builder().build().adapter(TokenResponse.class).fromJson(res);
+                    // write to files
+                    JWTWriter.writeTokenToFile(this, res, tokenResponse);
+                    // add token to http client
+                    HttpClient.authorise(this, tokenResponse.access);
                     // go to food court select
                     startActivity(new Intent(this, FoodCourtSelectActivity.class).putExtra("school", "SP"));
                 } catch (IOException e) {

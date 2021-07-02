@@ -2,9 +2,7 @@ package com.weebkun.skipdq.net;
 
 import java.io.Serializable;
 
-public class Customer implements Serializable {
-    public String id;
-    public String name;
+public class Customer extends Item implements Serializable {
     public String email;
     public String password;
     public String phone;

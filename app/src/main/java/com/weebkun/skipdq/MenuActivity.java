@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.weebkun.skipdq.net.HttpClient;
+import com.weebkun.skipdq.net.MenuItem;
+import com.weebkun.skipdq.util.ItemAdapter;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -13,9 +17,17 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        //set menu
-        String[] items = {"item 1", "item 2", "item 3"};
-        ListView menu = findViewById(R.id.menu_items);
-        menu.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
+        //get menu
+        HttpClient.get(String.format("/schools/%s/fc/%s/stalls/%s/menu",
+                getIntent().getStringExtra("school"),
+                getIntent().getStringExtra("fc"),
+                getIntent().getStringExtra("stall")), MenuItem[].class,
+                menuItems -> runOnUiThread(() -> {
+                    ListView menu = findViewById(R.id.menu_items);
+                    menu.setOnItemClickListener((parent, view, position, id) -> {
+
+                    });
+                    menu.setAdapter(new ItemAdapter<>(this, menuItems));
+                }));
     }
 }
