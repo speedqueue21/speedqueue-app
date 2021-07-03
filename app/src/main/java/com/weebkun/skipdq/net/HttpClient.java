@@ -26,6 +26,10 @@ public class HttpClient {
     private static final String content_type = "application/json; charset=utf-8";
     private static final Moshi moshi = new Moshi.Builder().build();
 
+    public static String getRoot() {
+        return root;
+    }
+
     public static void authorise(Context context, String token) {
         //set token to test
         authorise(token);

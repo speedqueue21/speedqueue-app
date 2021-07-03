@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.weebkun.skipdq.net.HttpClient;
 import com.weebkun.skipdq.net.MenuItem;
+import com.weebkun.skipdq.util.ImageAdapter;
 import com.weebkun.skipdq.util.ItemAdapter;
 
 public class MenuActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
                     menu.setOnItemClickListener((parent, view, position, id) -> {
 
                     });
-                    menu.setAdapter(new ItemAdapter<>(this, menuItems));
+                    menu.setAdapter(new ImageAdapter(this, menuItems));
                 }));
     }
 }
