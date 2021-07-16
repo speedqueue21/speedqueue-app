@@ -30,43 +30,27 @@ public class HttpClient {
         return root;
     }
 
-    public static void authorise(Context context, String token) {
-        //set token to test
-        authorise(token);
-        //test token
-        get("/", response -> {
-            if(!response.isSuccessful()) {
-                // token expired
-                // refresh token
-                try {
-                    TokenResponse tokenResponse = moshi.adapter(TokenResponse.class)
-                            .fromJson(JWTReader.read("token.json", context));
-                    refresh(context, tokenResponse.id, tokenResponse.refresh);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else authorise(token);
-        });
-    }
-
-    private static void authorise(String token) {
+    public static void authorise(String token) {
         client = client.newBuilder().addInterceptor(chain -> chain.proceed(chain.request().newBuilder()
                 // replace token with refreshed one if have
                 .header("authorization", "Bearer " + token).build())).build();
     }
 
-    public static void refresh(Context context, String id, String refresh) {
+    public static void refresh(Context context, String id, String refresh, Runnable callback) {
         post("/refresh", String.format("{" +
                 "\"id\": \"%s\"," +
                 "\"refresh\": \"%s\"" +
                 "}", id, refresh), response -> {
             try {
                 String body = response.body().string();
+                System.out.println(body);
                 TokenResponse tokenResponse = moshi.adapter(TokenResponse.class).fromJson(body);
                 //set token to header
                 authorise(tokenResponse.access);
                 // overwrite files
                 JWTWriter.writeTokenToFile(context, body, tokenResponse);
+                // done
+                callback.run();
             } catch (IOException e) {
                 e.printStackTrace();
             }

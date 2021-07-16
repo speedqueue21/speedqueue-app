@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     // write to files
                     JWTWriter.writeTokenToFile(this, res, tokenResponse);
                     // add token to http client
-                    HttpClient.authorise(this, tokenResponse.access);
+                    HttpClient.authorise(tokenResponse.access);
                     // go to food court select
                     startActivity(new Intent(this, FoodCourtSelectActivity.class).putExtra("school", "SP"));
                 } catch (IOException e) {

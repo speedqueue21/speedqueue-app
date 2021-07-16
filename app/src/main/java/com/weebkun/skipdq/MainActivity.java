@@ -11,10 +11,9 @@ import com.weebkun.skipdq.net.HttpClient;
 import com.weebkun.skipdq.net.TokenResponse;
 import com.weebkun.skipdq.util.JWTReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
+import static com.weebkun.skipdq.net.HttpClient.get;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +25,23 @@ public class MainActivity extends AppCompatActivity {
             String token = JWTReader.read("token.json", this);
             if(!token.isEmpty()) {
                 // token not empty
-                HttpClient.authorise(this, new Moshi.Builder().build().adapter(TokenResponse.class).fromJson(token).access);
-                startActivity(new Intent(this, FoodCourtSelectActivity.class));
+                HttpClient.authorise(new Moshi.Builder().build().adapter(TokenResponse.class).fromJson(token).access);
+                // test token
+                get("/", response -> {
+                    if(!response.isSuccessful()) {
+                        // token expired
+                        // refresh token
+                        try {
+                            TokenResponse tokenResponse = new Moshi.Builder().build().adapter(TokenResponse.class)
+                                    .fromJson(JWTReader.read("token.json", this));
+                            HttpClient.refresh(this, tokenResponse.id, tokenResponse.refresh, () -> startActivity(new Intent(this, FoodCourtSelectActivity.class)));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        startActivity(new Intent(this, FoodCourtSelectActivity.class));
+                    }
+                });
             }
         } catch (IOException e) {
             // assume don't have

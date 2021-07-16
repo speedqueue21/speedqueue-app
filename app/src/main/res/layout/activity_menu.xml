@@ -16,6 +16,18 @@
     <ListView
             android:id="@+id/menu_items"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
+
+    <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="cart"
+            android:textAlignment="center"
+            android:text="Cart"/>
 
 </LinearLayout>

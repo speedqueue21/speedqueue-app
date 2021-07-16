@@ -36,11 +36,11 @@ public class FoodCourtSelectActivity extends AppCompatActivity {
         // get user id from payload.json
         try {
             String payload = JWTReader.read("payload.json", this);
-            System.out.println(payload);
             JWTPayload body = new Moshi.Builder().build().adapter(JWTPayload.class).fromJson(payload);
             // get school preference by user id
             System.out.println(body.id);
             HttpClient.get("/user/" + body.id, Customer.class, customer -> {
+                System.out.println(customer.id);
                 // get fcs depending on school
                 HttpClient.get("/schools?name=" + customer.school, School.class, school ->
                         HttpClient.get(String.format("/schools/%s/fc", school.id), FoodCourt[].class, foodCourts -> {

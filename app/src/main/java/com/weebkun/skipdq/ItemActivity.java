@@ -2,18 +2,23 @@ package com.weebkun.skipdq;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.weebkun.skipdq.db.CartDatabase;
+import com.weebkun.skipdq.db.OrderItem;
 import com.weebkun.skipdq.net.HttpClient;
 import com.weebkun.skipdq.net.ItemOptions;
-import com.weebkun.skipdq.net.MenuItem;
-
-import org.w3c.dom.Text;
 
 public class ItemActivity extends AppCompatActivity {
 
@@ -35,6 +40,7 @@ public class ItemActivity extends AppCompatActivity {
                 title.setText(getIntent().getStringExtra("item_name"));
                 layout.addView(title);
                 for(ItemOptions itemOption : options) {
+                    // todo options validation
                     // set option title
                     TextView optionTitle = new TextView(this);
                     optionTitle.setText(itemOption.description);
@@ -61,8 +67,37 @@ public class ItemActivity extends AppCompatActivity {
                         layout.addView(group);
                     }
                 }
+                // quantity
+                EditText quantity = new EditText(this);
+                quantity.setId(R.id.quantity);
+                quantity.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                quantity.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+                layout.addView(quantity);
+                // set button
+                Button button = new Button(this);
+                button.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                button.setOnClickListener(this::add);
+                // for now just enable the button
+                // i will do the validation next time
+                button.setEnabled(true);
+                button.setBackgroundColor(Color.BLUE);
+                button.setTextColor(Color.WHITE);
+                button.setText("Add to cart");
+                layout.addView(button);
                 setContentView(layout);
             });
         });
+    }
+
+    protected void add(View view) {
+        // add to cart
+        System.out.println(CartDatabase.getDatabase(this).isOpen());
+        new Thread(() -> CartDatabase.getDatabase(this).getDao().addItem(new OrderItem(getIntent().getStringExtra("item_id"),
+                getIntent().getStringExtra("item_name"),
+                Integer.parseInt(((EditText) findViewById(R.id.quantity)).getText().toString()),
+                "",
+                0
+        ))).start();
+        finish();
     }
 }

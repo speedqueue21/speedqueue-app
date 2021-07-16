@@ -47,4 +47,6 @@ dependencies {
         exclude group: 'org.json', module: 'json' //provided by Android natively
     }
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.room:room-runtime:2.4.0-alpha01'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0-alpha01'
 }
