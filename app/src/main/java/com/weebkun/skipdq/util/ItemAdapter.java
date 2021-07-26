@@ -1,7 +1,6 @@
 package com.weebkun.skipdq.util;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.weebkun.skipdq.R;
-import com.weebkun.skipdq.net.Item;
+import com.weebkun.skipdq_net.Item;
 
 public class ItemAdapter<T extends Item> extends BaseAdapter {
 

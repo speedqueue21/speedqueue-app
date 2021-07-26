@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.weebkun.skipdq.net.HttpClient;
-import com.weebkun.skipdq.net.Item;
-import com.weebkun.skipdq.net.Stall;
+import com.weebkun.skipdq_net.HttpClient;
+import com.weebkun.skipdq_net.Stall;
 import com.weebkun.skipdq.util.ItemAdapter;
 
 public class StallSelectActivity extends AppCompatActivity {
@@ -30,8 +28,7 @@ public class StallSelectActivity extends AppCompatActivity {
                     startActivity(new Intent(this, MenuActivity.class)
                             .putExtra("stall", ((Stall) parent.getItemAtPosition(pos)).id)
                             .putExtra("school", getIntent().getStringExtra("school"))
-                            .putExtra("fc", getIntent().getStringExtra("fc")))
-                    ;
+                            .putExtra("fc", getIntent().getStringExtra("fc")));
                 });
                 listView.setAdapter(new ItemAdapter<>(this, stalls));
             });

@@ -9,8 +9,8 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.moshi.Moshi;
-import com.weebkun.skipdq.net.Customer;
-import com.weebkun.skipdq.net.HttpClient;
+import com.weebkun.skipdq_net.Customer;
+import com.weebkun.skipdq_net.HttpClient;
 
 public class RegisterSchoolActivity extends AppCompatActivity {
 

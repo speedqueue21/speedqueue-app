@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.weebkun.skipdq.net.Customer;
+import com.weebkun.skipdq_net.Customer;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

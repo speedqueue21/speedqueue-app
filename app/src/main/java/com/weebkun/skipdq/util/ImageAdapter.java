@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.weebkun.skipdq.R;
-import com.weebkun.skipdq.net.HttpClient;
-import com.weebkun.skipdq.net.MenuItem;
+import com.weebkun.skipdq_net.HttpClient;
+import com.weebkun.skipdq_net.MenuItem;
 
 public class ImageAdapter extends BaseAdapter {
 

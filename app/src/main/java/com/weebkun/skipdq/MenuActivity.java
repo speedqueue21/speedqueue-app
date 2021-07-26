@@ -7,8 +7,8 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.weebkun.skipdq.net.HttpClient;
-import com.weebkun.skipdq.net.MenuItem;
+import com.weebkun.skipdq_net.HttpClient;
+import com.weebkun.skipdq_net.MenuItem;
 import com.weebkun.skipdq.util.ImageAdapter;
 
 public class MenuActivity extends AppCompatActivity {

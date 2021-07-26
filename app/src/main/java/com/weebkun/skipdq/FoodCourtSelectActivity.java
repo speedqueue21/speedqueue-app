@@ -1,31 +1,21 @@
 package com.weebkun.skipdq;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.moshi.Moshi;
-import com.weebkun.skipdq.net.Customer;
-import com.weebkun.skipdq.net.FoodCourt;
-import com.weebkun.skipdq.net.HttpClient;
-import com.weebkun.skipdq.net.School;
+import com.weebkun.skipdq_net.Customer;
+import com.weebkun.skipdq_net.FoodCourt;
+import com.weebkun.skipdq_net.HttpClient;
+import com.weebkun.skipdq_net.School;
 import com.weebkun.skipdq.util.ItemAdapter;
-import com.weebkun.skipdq.util.JWTPayload;
-import com.weebkun.skipdq.util.JWTReader;
+import com.weebkun.skipdq_net.util.JWTPayload;
+import com.weebkun.skipdq_net.util.JWTReader;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FoodCourtSelectActivity extends AppCompatActivity {
 
@@ -38,9 +28,7 @@ public class FoodCourtSelectActivity extends AppCompatActivity {
             String payload = JWTReader.read("payload.json", this);
             JWTPayload body = new Moshi.Builder().build().adapter(JWTPayload.class).fromJson(payload);
             // get school preference by user id
-            System.out.println(body.id);
             HttpClient.get("/user/" + body.id, Customer.class, customer -> {
-                System.out.println(customer.id);
                 // get fcs depending on school
                 HttpClient.get("/schools?name=" + customer.school, School.class, school ->
                         HttpClient.get(String.format("/schools/%s/fc", school.id), FoodCourt[].class, foodCourts -> {

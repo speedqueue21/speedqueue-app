@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.squareup.moshi.Moshi;
-import com.weebkun.skipdq.net.HttpClient;
-import com.weebkun.skipdq.net.TokenResponse;
-import com.weebkun.skipdq.util.JWTReader;
+import com.weebkun.skipdq_net.HttpClient;
+import com.weebkun.skipdq_net.TokenResponse;
+import com.weebkun.skipdq_net.util.JWTReader;
 
 import java.io.IOException;
 
-import static com.weebkun.skipdq.net.HttpClient.get;
+import static com.weebkun.skipdq_net.HttpClient.get;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             TokenResponse tokenResponse = new Moshi.Builder().build().adapter(TokenResponse.class)
                                     .fromJson(JWTReader.read("token.json", this));
+                            SkipDQ.custId = tokenResponse.id;
                             HttpClient.refresh(this, tokenResponse.id, tokenResponse.refresh, () -> startActivity(new Intent(this, FoodCourtSelectActivity.class)));
                         } catch (IOException e) {
                             e.printStackTrace();
