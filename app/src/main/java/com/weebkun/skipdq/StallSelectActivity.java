@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.weebkun.skipdq.util.ItemAdapter;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.Stall;
 
-public class StallSelectActivity extends SkipDqActivity {
+public class StallSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,7 +2,9 @@ package com.weebkun.skipdq;
 
 import android.os.Bundle;
 
-public class UserProfileActivity extends SkipDqActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

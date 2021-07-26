@@ -50,6 +50,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     public void checkout(View view) {
         // create new order
+        System.out.println(SkipDQ.custId);
         HttpClient.post("/order", String.format("{" +
                 "\"cust_id\":\"%s\"," +
                 "\"stall_id\":\"%s\"," +

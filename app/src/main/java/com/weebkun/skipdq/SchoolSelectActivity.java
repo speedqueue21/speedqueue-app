@@ -2,7 +2,9 @@ package com.weebkun.skipdq;
 
 import android.os.Bundle;
 
-public class SchoolSelectActivity extends SkipDqActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SchoolSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

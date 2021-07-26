@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.squareup.moshi.Moshi;
+import com.weebkun.skipdq.db.CartDatabase;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.TokenResponse;
 import com.weebkun.skipdq_net.util.JWTReader;
@@ -13,11 +16,16 @@ import java.io.IOException;
 
 import static com.weebkun.skipdq_net.HttpClient.get;
 
-public class MainActivity extends SkipDqActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // clear cart
+        new Thread(() -> {
+            CartDatabase.getDatabase(this).getDao().clearCart();
+            CartDatabase.getDatabase(this).getDao().resetId();
+        }).start();
         // check if got token
         try {
             String token = JWTReader.read("token.json", this);
@@ -33,6 +41,7 @@ public class MainActivity extends SkipDqActivity {
                             TokenResponse tokenResponse = new Moshi.Builder().build().adapter(TokenResponse.class)
                                     .fromJson(JWTReader.read("token.json", this));
                             SkipDQ.custId = tokenResponse.id;
+                            System.out.println(SkipDQ.custId);
                             HttpClient.refresh(this, tokenResponse.id, tokenResponse.refresh, () -> startActivity(new Intent(this, FoodCourtSelectActivity.class)));
                         } catch (IOException e) {
                             e.printStackTrace();

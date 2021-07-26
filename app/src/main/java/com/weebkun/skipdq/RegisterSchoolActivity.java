@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq_net.Customer;
 import com.weebkun.skipdq_net.HttpClient;
 
-public class RegisterSchoolActivity extends SkipDqActivity {
+public class RegisterSchoolActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

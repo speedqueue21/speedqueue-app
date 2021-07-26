@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.TokenResponse;
@@ -12,7 +14,7 @@ import com.weebkun.skipdq_net.util.JWTWriter;
 
 import java.io.IOException;
 
-public class LoginActivity extends SkipDqActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
