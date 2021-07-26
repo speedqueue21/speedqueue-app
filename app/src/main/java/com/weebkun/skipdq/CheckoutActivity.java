@@ -51,8 +51,8 @@ public class CheckoutActivity extends AppCompatActivity {
     public void checkout(View view) {
         // create new order
         HttpClient.post("/order", String.format("{" +
-                "\"cust_id\":\"%s\"" +
-                "\"stall_id\":\"%s\"" +
+                "\"cust_id\":\"%s\"," +
+                "\"stall_id\":\"%s\"," +
                 "\"items\": %s" +
                 "}", SkipDQ.custId, stall_id, SkipDQ.getMoshi().adapter(OrderItem[].class).toJson(items)));
         startActivity(new Intent(this, OrderStatusActivity.class));

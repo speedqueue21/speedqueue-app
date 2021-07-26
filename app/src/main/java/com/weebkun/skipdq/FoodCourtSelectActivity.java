@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq_net.Customer;
 import com.weebkun.skipdq_net.FoodCourt;
@@ -17,7 +15,7 @@ import com.weebkun.skipdq_net.util.JWTReader;
 
 import java.io.IOException;
 
-public class FoodCourtSelectActivity extends AppCompatActivity {
+public class FoodCourtSelectActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

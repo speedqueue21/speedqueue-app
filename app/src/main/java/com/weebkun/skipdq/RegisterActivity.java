@@ -1,7 +1,5 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +9,7 @@ import com.weebkun.skipdq_net.Customer;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

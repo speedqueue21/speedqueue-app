@@ -21,4 +21,7 @@ public interface CartDao {
 
     @Query("delete from order_item where 1=1")
     void clearCart();
+
+    @Query("delete from sqlite_sequence where name = 'order_item'")
+    void resetId();
 }

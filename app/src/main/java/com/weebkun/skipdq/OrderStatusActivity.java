@@ -1,10 +1,8 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class OrderStatusActivity extends AppCompatActivity {
+public class OrderStatusActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

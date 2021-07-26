@@ -1,10 +1,8 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

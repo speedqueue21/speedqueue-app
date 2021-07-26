@@ -1,16 +1,14 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.weebkun.skipdq.util.ItemAdapter;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.Stall;
-import com.weebkun.skipdq.util.ItemAdapter;
 
-public class StallSelectActivity extends AppCompatActivity {
+public class StallSelectActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

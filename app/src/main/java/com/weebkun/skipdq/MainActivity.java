@@ -1,7 +1,5 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +13,7 @@ import java.io.IOException;
 
 import static com.weebkun.skipdq_net.HttpClient.get;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

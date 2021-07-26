@@ -1,7 +1,5 @@
 package com.weebkun.skipdq;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,7 @@ import com.weebkun.skipdq_net.util.JWTWriter;
 
 import java.io.IOException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends SkipDqActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
