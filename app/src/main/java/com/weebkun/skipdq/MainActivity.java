@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
                             TokenResponse tokenResponse = new Moshi.Builder().build().adapter(TokenResponse.class)
                                     .fromJson(JWTReader.read("token.json", this));
                             SkipDQ.custId = tokenResponse.id;
-                            System.out.println(SkipDQ.custId);
                             HttpClient.refresh(this, tokenResponse.id, tokenResponse.refresh, () -> startActivity(new Intent(this, FoodCourtSelectActivity.class)));
                         } catch (IOException e) {
                             e.printStackTrace();

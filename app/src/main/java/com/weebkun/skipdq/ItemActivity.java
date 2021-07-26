@@ -136,7 +136,6 @@ public class ItemActivity extends AppCompatActivity {
 
     protected void add(View view) {
         // add to cart
-        System.out.println(CartDatabase.getDatabase(this).isOpen());
         new Thread(() -> CartDatabase.getDatabase(this).getDao().addItem(new OrderItem(getIntent().getStringExtra("item_id"),
                 item.stall_id,
                 getIntent().getStringExtra("item_name"),
