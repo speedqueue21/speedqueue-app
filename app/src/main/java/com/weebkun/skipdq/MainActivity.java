@@ -10,6 +10,7 @@ import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq.db.CartDatabase;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.TokenResponse;
+import com.weebkun.skipdq_net.WSClient;
 import com.weebkun.skipdq_net.util.JWTReader;
 
 import java.io.IOException;
@@ -48,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startActivity(new Intent(this, FoodCourtSelectActivity.class));
                     }
+                    WSClient.getClient().connect();
                 });
             }
         } catch (IOException e) {
-            // assume don't have
             setContentView(R.layout.activity_main);
         }
     }

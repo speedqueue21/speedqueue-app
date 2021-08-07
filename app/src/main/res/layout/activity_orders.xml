@@ -4,13 +4,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".OrderStatusActivity">
+        tools:context=".OrdersActivity">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Order Status"
+            android:text="Orders"
             android:textAlignment="center"
             android:textSize="50sp"/>
+
+    <ListView
+            android:id="@+id/orders_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

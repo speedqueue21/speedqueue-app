@@ -55,6 +55,6 @@ public class CheckoutActivity extends AppCompatActivity {
                 "\"stall_id\":\"%s\"," +
                 "\"items\": %s" +
                 "}", SkipDQ.custId, stall_id, SkipDQ.getMoshi().adapter(OrderItem[].class).toJson(items)));
-        startActivity(new Intent(this, OrderStatusActivity.class));
+        startActivity(new Intent(this, OrdersActivity.class));
     }
 }

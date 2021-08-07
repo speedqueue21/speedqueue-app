@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.moshi.Moshi;
 import com.weebkun.skipdq_net.HttpClient;
 import com.weebkun.skipdq_net.TokenResponse;
+import com.weebkun.skipdq_net.WSClient;
 import com.weebkun.skipdq_net.util.JWTWriter;
 
 import java.io.IOException;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
                     JWTWriter.writeTokenToFile(this, res, tokenResponse);
                     // add token to http client
                     HttpClient.authorise(tokenResponse.access);
+                    // connect to websocket
+                    WSClient.getClient().connect();
                     // go to food court select
                     startActivity(new Intent(this, FoodCourtSelectActivity.class).putExtra("school", "SP"));
                 } catch (IOException e) {
