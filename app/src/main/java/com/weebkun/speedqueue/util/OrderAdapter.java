@@ -49,17 +49,21 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) convertView = LayoutInflater.from(context).inflate(R.layout.orders, parent, false);
+        // do not use convertView
+        // breaks everything
+        View view = LayoutInflater.from(context).inflate(R.layout.orders, parent, false);
 
         Order order = orders[position];
         // populate text views
-        ((TextView) convertView.findViewById(R.id.stall_name)).setText(stallIdToName.get(order.stallId));
-        ((TextView) convertView.findViewById(R.id.order_no)).setText(Integer.toString(order.code));
-        ((TextView) convertView.findViewById(R.id.status)).setText(order.status);
+        ((TextView) view.findViewById(R.id.stall_name)).setText(stallIdToName.get(order.stallId));
+        ((TextView) view.findViewById(R.id.order_no)).setText(Integer.toString(order.code));
+        ((TextView) view.findViewById(R.id.status)).setText(order.status);
         // populate food items
-        LinearLayout ll = convertView.findViewById(R.id.food_items);
+        LinearLayout ll = view.findViewById(R.id.food_items);
+        // passed
+        System.out.println(orderItems.get(order.id).length);
         for(OrderItem item : orderItems.get(order.id)) {
-            System.out.println(item.id);
+            System.out.println(item.id); // here still fine
             RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.order_items, ll, false);
             try {
                 ((TextView) layout.findViewById(R.id.food_name)).setText(item.name);
@@ -73,6 +77,6 @@ public class OrderAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
         }
-        return convertView;
+        return view;
     }
 }
