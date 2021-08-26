@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.weebkun.skipdq">
+        package="com.weebkun.speedqueue">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".SkipDQ"
+            android:name="com.weebkun.speedqueue.SkipDQ"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Skipdq">
-        <activity android:name=".OrdersActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterSchoolActivity" />
-        <activity android:name=".HelpActivity" />
-        <activity android:name=".FavouritesActivity" />
-        <activity android:name=".UserProfileActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".CurrentOrdersActivity" />
-        <activity android:name=".CheckoutActivity" />
-        <activity android:name=".ItemActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".StallSelectActivity" />
-        <activity android:name=".FoodCourtSelectActivity" />
-        <activity android:name=".SchoolSelectActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.weebkun.speedqueue.SpeedQueueActivity"></activity>
+        <activity android:name="com.weebkun.speedqueue.OrdersActivity" />
+        <activity android:name="com.weebkun.speedqueue.LoginActivity" />
+        <activity android:name="com.weebkun.speedqueue.RegisterSchoolActivity" />
+        <activity android:name="com.weebkun.speedqueue.HelpActivity" />
+        <activity android:name="com.weebkun.speedqueue.FavouritesActivity" />
+        <activity android:name="com.weebkun.speedqueue.UserProfileActivity" />
+        <activity android:name="com.weebkun.speedqueue.SettingsActivity" />
+        <activity android:name="com.weebkun.speedqueue.CurrentOrdersActivity" />
+        <activity android:name="com.weebkun.speedqueue.CheckoutActivity" />
+        <activity android:name="com.weebkun.speedqueue.ItemActivity" />
+        <activity android:name="com.weebkun.speedqueue.MenuActivity" />
+        <activity android:name="com.weebkun.speedqueue.StallSelectActivity" />
+        <activity android:name="com.weebkun.speedqueue.FoodCourtSelectActivity" />
+        <activity android:name="com.weebkun.speedqueue.SchoolSelectActivity" />
+        <activity android:name="com.weebkun.speedqueue.RegisterActivity" />
+        <activity android:name="com.weebkun.speedqueue.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
