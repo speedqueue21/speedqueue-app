@@ -57,20 +57,21 @@ public class OrderAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.order_no)).setText(Integer.toString(order.code));
         ((TextView) convertView.findViewById(R.id.status)).setText(order.status);
         // populate food items
+        LinearLayout ll = convertView.findViewById(R.id.food_items);
         for(OrderItem item : orderItems.get(order.id)) {
-            LinearLayout ll = convertView.findViewById(R.id.food_items);
+            System.out.println(item.id);
             RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.order_items, ll, false);
             try {
                 ((TextView) layout.findViewById(R.id.food_name)).setText(item.name);
                 // parse selections json to comma separated string
                 OrderItem.Selections selections = item.parseSelections();
-                ((TextView) layout.findViewById(R.id.selections)).setText(String.join(", ", selections.selections));
+                ((TextView) layout.findViewById(R.id.selections)).setText(selections.selections.length != 0 ? String.join(", ", selections.selections) : "No Selection");
                 // calculate total price
                 ((TextView) layout.findViewById(R.id.price)).setText(String.format("$%.2f", item.amount + selections.price));
+                ll.addView(layout);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ll.addView(layout);
         }
         return convertView;
     }

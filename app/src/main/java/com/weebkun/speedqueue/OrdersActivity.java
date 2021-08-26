@@ -30,13 +30,13 @@ public class OrdersActivity extends AppCompatActivity {
             for (Order order : orders) {
                 AtomicBoolean stallDone = new AtomicBoolean(false);
                 AtomicBoolean itemsDone = new AtomicBoolean(false);
-                System.out.println(order.id);
                 HttpClient.get(String.format("/stall/%s", order.stallId), Stall.class, stall -> {
                     stallIdToName.put(stall.id, stall.name);
                     stallDone.set(true);
                 });
                 HttpClient.get(String.format("/order/%s/items", order.id), OrderItem[].class, items -> {
                     orderItems.put(order.id, items);
+                    System.out.println(items.length);
                     itemsDone.set(true);
                 });
                 // wait until both calls done
