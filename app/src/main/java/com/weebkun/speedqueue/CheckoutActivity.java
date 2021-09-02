@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.weebkun.speedqueue.db.CartDatabase;
@@ -25,6 +27,10 @@ public class CheckoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
+        // set dropdown
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"Wallet", "Paynow"});
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ((Spinner) findViewById(R.id.payment_method)).setAdapter(adapter);
         new Thread(() -> {
             OrderItem[] orderItems = CartDatabase.getDatabase(this).getDao().getItems();
             items = orderItems;
@@ -53,8 +59,12 @@ public class CheckoutActivity extends AppCompatActivity {
         HttpClient.post("/order", String.format("{" +
                 "\"cust_id\":\"%s\"," +
                 "\"stall_id\":\"%s\"," +
-                "\"items\": %s" +
-                "}", SkipDQ.custId, stall_id, SkipDQ.getMoshi().adapter(OrderItem[].class).toJson(items)));
+                "\"payment\":\"%s\"," +
+                "\"items\": %s"+
+                "}", SkipDQ.custId,
+                stall_id,
+                ((Spinner) findViewById(R.id.payment_method)).getSelectedItem().toString(),
+                SkipDQ.getMoshi().adapter(OrderItem[].class).toJson(items)));
         startActivity(new Intent(this, OrdersActivity.class));
     }
 }
